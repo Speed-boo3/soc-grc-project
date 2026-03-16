@@ -1,0 +1,72 @@
+rules:
+  - id: RULE-001
+    name: Brute Force SSH
+    description: Multiple failed SSH login attempts from the same IP
+    log_type: auth
+    condition:
+      field: message
+      contains: "Failed password"
+      threshold: 3
+      timewindow_minutes: 5
+    severity: high
+    action: alert
+
+  - id: RULE-002
+    name: Invalid User Login Attempt
+    description: Someone tried to log in with a username that does not exist
+    log_type: auth
+    condition:
+      field: message
+      contains: "Invalid user"
+      threshold: 1
+      timewindow_minutes: 1
+    severity: medium
+    action: alert
+
+  - id: RULE-003
+    name: Sudo Authentication Failure
+    description: A user failed to authenticate with sudo
+    log_type: syslog
+    condition:
+      field: message
+      contains: "authentication failure"
+      threshold: 1
+      timewindow_minutes: 1
+    severity: medium
+    action: log
+
+  - id: RULE-004
+    name: HTTP 401 Responses
+    description: Multiple unauthorized HTTP responses, possible credential stuffing
+    log_type: apache
+    condition:
+      field: status
+      equals: "401"
+      threshold: 5
+      timewindow_minutes: 2
+    severity: high
+    action: alert
+
+  - id: RULE-005
+    name: Access to Admin Path
+    description: Request to /admin endpoint was blocked
+    log_type: apache
+    condition:
+      field: request
+      contains: "/admin"
+      threshold: 1
+      timewindow_minutes: 1
+    severity: low
+    action: log
+
+  - id: RULE-006
+    name: Segfault Detected
+    description: A program crashed with a segmentation fault
+    log_type: syslog
+    condition:
+      field: message
+      contains: "segfault"
+      threshold: 1
+      timewindow_minutes: 1
+    severity: medium
+    action: alert
