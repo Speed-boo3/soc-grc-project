@@ -494,18 +494,18 @@ footer a{color:var(--t2);text-decoration:none}footer a:hover{color:var(--t1)}
   <div class="aichat">
     <div class="aichat-header">
       <div class="aiavatar">AI</div>
-      <div><div class="ainame">Security Analyst AI</div><div class="aisub">Powered by Claude — Anthropic</div></div>
+      <div><div class="ainame">Security Analyst AI</div><div class="aisub">Cybersecurity assistant</div></div>
       <div class="aistatus"><div class="aistatdot"></div>Online</div>
     </div>
     <div class="aimessages" id="aimessages">
       <div class="aimsg ai">Hello. I am an AI security analyst. I can answer questions about SOC operations, GRC frameworks, MITRE ATT&CK, ISO 27001, NIST CSF, risk management, incident response and careers in cybersecurity. What would you like to know?</div>
     </div>
     <div class="aisugs">
-      <button class="aisg" onclick="askSug(this)">What is the SOC/GRC feedback loop?</button>
-      <button class="aisg" onclick="askSug(this)">How does brute force detection work?</button>
-      <button class="aisg" onclick="askSug(this)">What is MITRE ATT&CK T1110?</button>
-      <button class="aisg" onclick="askSug(this)">How do I get into cybersecurity?</button>
-      <button class="aisg" onclick="askSug(this)">What does ISO 27001 certification require?</button>
+      <button class="aisg" onclick="askSug(this)">I want to work in cybersecurity, where do I start?</button>
+      <button class="aisg" onclick="askSug(this)">Explain SOC and GRC like I am new to this</button>
+      <button class="aisg" onclick="askSug(this)">What skills do companies actually look for?</button>
+      <button class="aisg" onclick="askSug(this)">How does a real SOC analyst spend their day?</button>
+      <button class="aisg" onclick="askSug(this)">What certifications are worth getting?</button>
     </div>
     <div class="aiinput-wrap">
       <input class="aiinput" id="aiinput" placeholder="Ask anything about cybersecurity..." onkeydown="if(event.key==='Enter')sendAI()"/>
@@ -628,39 +628,99 @@ function runScan(){
   },900);
 }
 
-/* ── AI ANALYST — smart offline engine ── */
+/* ── AI ANALYST — conversational engine ── */
 const KB=[
-  {k:['soc grc loop','feedback loop','connect','together','both'],a:`The **SOC/GRC feedback loop** is the most important concept in this project. When the SOC detects a brute force attack, that finding gets added to the GRC risk register — raising the likelihood score on the affected risk. The risk level escalates, triggering a policy review. The security policy is updated (e.g. SSH key auth becomes mandatory). The SOC then adds a new detection rule for the policy violation. The weekly GRC compliance report shows the control score improving. Then it starts again. One loop. Stronger with every cycle.`},
-  {k:['brute force','sliding window','detector','t1110'],a:`The **brute force detector** uses a sliding time window algorithm — not a simple total count. A total count misses burst attacks: 10 attempts in 30 seconds is far more dangerous than 10 spread over a week. The sliding window checks whether the threshold (e.g. 5 failed logins) is exceeded within a configurable time period (e.g. 300 seconds). This maps to **MITRE ATT&CK T1110 — Brute Force** under the Credential Access tactic. The detector runs against parsed auth logs and outputs flagged IPs with attempt counts and a BLOCK RECOMMENDED verdict.`},
-  {k:['mitre','attack','technique','tactic','t1110','t1078','t1190','t1203'],a:`This project covers **6 MITRE ATT&CK techniques**: T1110 (Brute Force), T1110.004 (Credential Stuffing), T1078 (Valid Accounts — both Initial Access and Privilege Escalation), T1190 (Exploit Public Application) and T1203 (Exploitation for Client Execution). Every detection rule in the YAML file maps to one of these. When an alert fires, the technique ID tells you what the attacker is trying to accomplish and what they are likely to do next — enabling faster triage and targeted response.`},
-  {k:['iso 27001','iso27001','certification','standard','annex','93 control'],a:`**ISO 27001** is the international standard for information security management. It contains **93 controls** across four themes: Organisational, People, Physical and Technological. To get certified, an organisation must define their ISMS scope, conduct a risk assessment, write a Statement of Applicability, implement controls, and pass a two-stage external audit. Certification is valid for 3 years with annual surveillance audits. This project includes a compliance checklist covering the most critical ISO 27001 controls and a gap analysis template for identifying what is missing.`},
-  {k:['nist csf','nist','cybersecurity framework','govern','identify','protect','detect','respond','recover'],a:`**NIST CSF 2.0** has six core functions: **Govern** (new in 2.0 — sets strategy and accountability), **Identify** (know your assets and risks), **Protect** (put safeguards in place), **Detect** (find threats that get through), **Respond** (take action on incidents) and **Recover** (restore operations). The order is deliberate — you cannot protect what you have not identified, and you cannot recover effectively without a response plan. This project maps its controls to NIST CSF alongside ISO 27001.`},
-  {k:['risk','score','matrix','likelihood','impact','scoring'],a:`Risk scoring in this project uses **likelihood × impact**. Both run from 1 to 5, giving a score between 1 and 25. Scores 1–4 are Low (accept or monitor), 5–9 Medium (fix in 90 days), 10–16 High (fix in 30 days), 17–25 Critical (fix immediately). A phishing attack scores 20 because likelihood is 5 (almost certain) and impact is 4 (major). A lost laptop scores 6 because impact is low if disk encryption is enforced — which is exactly why encryption is a standard control. The score tells you what to fix first when you cannot fix everything at once.`},
-  {k:['incident response','ir','playbook','nist 800-61','800-61','lifecycle'],a:`Incident response follows the **NIST SP 800-61** lifecycle: **Triage** (is this real? — 5 minutes), **Containment** (stop the spread — 30 minutes for HIGH), **Investigation** (build the evidence timeline), **Eradication** (remove the threat, patch the vulnerability), **Recovery** (restore with monitoring active), and **Post-Incident Report** (within 5 business days). The playbook in this project defines exact steps for each alert type. It exists so analysts do not make decisions under pressure — the steps are already decided.`},
-  {k:['threat intel','abuseipdb','ip reputation','intelligence','enrich'],a:`**Threat intelligence** enriches alerts with external context. When a source IP appears in logs, the threat_intel.py script queries **AbuseIPDB** and returns an abuse confidence score (0–100), total reports, country, ISP and abuse categories. A score above 80 means the IP is almost certainly malicious. This changes how an alert is handled: a 97% score is not a suspicious login — it is a targeted attack from a known threat actor. Context changes severity, priority and response time.`},
-  {k:['grc','governance','risk','compliance','what is'],a:`**GRC** stands for Governance, Risk and Compliance. **Governance** is setting the rules — policies, roles, accountability. Without it, security has no strategy. **Risk** is identifying what could go wrong, scoring it by likelihood and impact, and deciding what to fix first. **Compliance** is proving your controls actually work — not just having a policy that says the right thing, but demonstrating it in an audit. GRC is the strategic layer that sits above technical security work. The SOC detects what is happening. GRC ensures the right controls exist to prevent it.`},
-  {k:['career','job','get into','break into','cybersecurity','analyst','hire','entry'],a:`For cybersecurity roles at large organisations, the most important thing is demonstrating that you understand **systems, not just tools**. Build projects that show the full picture: detection and governance together. Know MITRE ATT&CK well enough to map a log entry to a technique. Understand the SOC/GRC feedback loop. Be able to explain risk scoring and why a sliding window beats a total count. For certifications: **CompTIA Security+** to start, then **ISO 27001 Lead Implementer** or **AWS Certified Security Specialty** depending on which direction you want to go. Having a live portfolio like this one — with real code, real outputs and a working AI — puts you in the top 5% of applicants.`},
-  {k:['log parser','parser','log','parse','classify'],a:`The **log parser** reads raw log files line by line and classifies each entry by type: SSH auth logs, Apache access logs, or syslog entries. It flags anything suspicious — failed passwords, invalid users, sudo failures, segfaults, requests to admin paths. The output is a structured JSON file that the alert engine and brute force detector use downstream. This separation of concerns mirrors how real SIEM ingestion pipelines work: ingest, parse, enrich, detect.`},
-  {k:['network scan','scanner','nmap','port','exposure'],a:`The **network scanner** wraps nmap and converts risky open ports directly into risk register entries. This is one of the most important GRC activities: checking whether the network actually matches what the security policy says it should. Port 22 open to 0.0.0.0/0 is a policy violation. Port 3306 (MySQL) accessible from the internet is a Critical risk. The scanner catches the gap between what is documented and what is actually running — which is where most audit findings come from.`},
-  {k:['cloudtrail','aws','cloud','s3','iam','bucket'],a:`Cloud security work involves verifying that AWS configurations match security policies. The most common findings: **S3 buckets with Block Public Access disabled** (anyone can read the files), **IAM users with AdministratorAccess** (full account takeover if compromised), **SSH open to 0.0.0.0/0** in security groups (constant brute force target), and **CloudTrail logging disabled** (no audit trail for incident investigation). The cloud-security project in this portfolio scans for all of these automatically using boto3.`},
-  {k:['python','code','script','built','tool'],a:`All tools in this project are built in Python. The log parser uses regex to classify log lines. The alert engine loads YAML detection rules and matches them against parsed JSON. The brute force detector implements a sliding window algorithm from scratch. The risk matrix reads a JSON risk register and sorts by likelihood × impact. The network scanner wraps subprocess calls to nmap. All scripts have argparse CLI interfaces, output structured JSON, and are covered by pytest test suites. The GitHub Actions workflows run tests on every push and the full scan pipeline daily at 07:00 UTC.`},
+  {k:['start','begin','new','where','how to get in','break into','career','job','work in','interested in','want to','cybersecurity career'],a:[
+    "Great that you're interested! Honestly the best starting point is just building something. The fact that you're looking at a project like this already puts you ahead. What direction interests you more — the technical side (detecting threats, analysing logs) or the governance/policy side (risk management, compliance)?",
+    "Cybersecurity is a big field. The two most accessible entry points are SOC analyst (you monitor alerts, investigate incidents, respond to threats) and GRC analyst (you manage risk, write policies, prepare for audits). Which sounds more like you?"
+  ]},
+  {k:['soc analyst','day','daily','work look like','analyst do','analyst spend'],a:[
+    "A typical SOC analyst day: you come in, check the alert queue from overnight, triage anything that fired. Most alerts are false positives — your job is quickly separating noise from signal. When something real comes in, you investigate: check the logs, look up the source IP in threat intel, decide if it needs escalation. You document everything. And in quieter moments you work on improving detection rules so tomorrow's alerts are more accurate.",
+    "Honestly the job is 80% triage and documentation, 20% actual investigation. The exciting incidents are rare. But when they happen — a real brute force attack, a compromise — that's when all the preparation pays off. The analysts who get promoted fastest are the ones who improve the rules between incidents, not just respond to them."
+  ]},
+  {k:['skill','skills','look for','companies want','hire','employer','cv','resume','portfolio'],a:[
+    "What companies actually look for, in order: 1) Can you explain what you built and why? 2) Do you understand MITRE ATT&CK well enough to map a log entry to a technique? 3) Can you describe the difference between a false positive and a real incident? 4) Do you know what ISO 27001 or NIST CSF are? A project like this one — with real code, real output and an understanding of the loop between SOC and GRC — puts you in the top 10% of entry-level applicants.",
+    "The skill most candidates are missing is connecting the dots between detection and governance. Anyone can set up a log parser. Far fewer can explain how a SOC finding should raise a risk score, trigger a policy review, and result in a new detection rule. That loop is what enterprise security teams actually care about."
+  ]},
+  {k:['certification','cert','certifications','comptia','cissp','cisa','worth','study'],a:[
+    "For entry level: CompTIA Security+ is the baseline, almost universally recognised. After that it depends on which direction you're going. SOC path: CompTIA CySA+, then maybe a SIEM-specific cert (Splunk, Microsoft Sentinel). GRC path: ISO 27001 Lead Implementer is highly respected in Europe. Cloud path: AWS Certified Security Specialty is very in-demand right now.",
+    "Honest take: certifications prove you can study. Projects prove you can build. Ideally you want both. A candidate with Security+ and a working portfolio like this one will beat a candidate with CISSP and no practical work in almost every entry-level interview."
+  ]},
+  {k:['soc grc','feedback loop','connect','together','how they','relationship','difference between soc and grc'],a:[
+    "The simplest way to think about it: SOC is reactive, GRC is proactive. SOC asks 'what is happening right now?' GRC asks 'are we set up correctly to handle what happens?' But they feed each other. When the SOC detects a brute force attack, that finding goes into the GRC risk register — the likelihood score rises. The security policy gets updated. The SOC gets a new detection rule. Compliance score improves. Then it starts again.",
+    "Think of SOC as the immune system responding to infection, and GRC as the immune system getting stronger after each infection. The SOC detects the attack. GRC learns from it, updates the policies, closes the gap. A mature security programme has both working in a loop."
+  ]},
+  {k:['brute force','sliding window','t1110','detector','failed login','ssh'],a:[
+    "Brute force is when an attacker tries many passwords against an account hoping one works. The key insight in this project's detector is the sliding window: instead of counting total failed logins, it counts how many happened within a time window (e.g. 5 attempts in 60 seconds). That's more accurate because 10 attempts over a week could be a forgetful user. 10 attempts in 30 seconds is almost certainly an attack.",
+    "In MITRE ATT&CK terms it's T1110 — Brute Force under the Credential Access tactic. The attacker's goal is to get valid credentials. Once they have them they can move to T1078 (using the valid account) and then escalate from there. Knowing the technique ID tells you what comes next in the attack chain, which helps you prioritise the response."
+  ]},
+  {k:['mitre','att&ck','attack','technique','tactic','t1078','t1190','t1203'],a:[
+    "MITRE ATT&CK is a catalogue of attacker techniques organised by what they're trying to accomplish (tactic) and how they do it (technique). This project covers 6 techniques: brute force, credential stuffing, valid accounts (two tactics), exploit public app, and client exploitation. When an alert fires with a technique ID attached, you immediately know the attacker's goal and what they're likely to try next.",
+    "The real value of ATT&CK is it gives you a common language. When you write a detection rule and tag it T1110, any security engineer in the world knows exactly what you're detecting. Every major SIEM, EDR and XDR platform uses ATT&CK taxonomy. Knowing it is non-negotiable for SOC roles."
+  ]},
+  {k:['iso 27001','iso27001','27001','certification','standard','audit','controls','93'],a:[
+    "ISO 27001 is the international standard for managing information security. Think of it as a framework that says: here are 93 controls you should have in place, here's how to prove they work, here's how an external auditor will check you. Getting certified means a third party has verified that your security programme is real and functioning, not just documented.",
+    "The most important concept in ISO 27001 is the Statement of Applicability — you have to go through all 93 controls and either implement them or document why they don't apply to you. This forces you to actually think about your security posture rather than just checkbox compliance. The gap analysis template in the GRC project is how you start that process."
+  ]},
+  {k:['nist csf','nist','cybersecurity framework','govern','identify','protect','detect','respond','recover'],a:[
+    "NIST CSF organises security into 6 functions: Govern (set the strategy), Identify (know your assets and risks), Protect (put safeguards in place), Detect (find threats), Respond (handle incidents), Recover (get back to normal). Version 2.0 added Govern in 2024 because organisations kept implementing great technical controls with no strategic direction behind them.",
+    "The order is deliberate. You can't protect what you haven't identified. You can't respond effectively without a plan. You can't recover without knowing what normal looks like. NIST CSF is more flexible than ISO 27001 — there's no certification, just a structure you adapt to your organisation's needs."
+  ]},
+  {k:['risk','scoring','matrix','likelihood','impact','score','critical','high','medium','low'],a:[
+    "Risk scoring is just: how likely is this to happen (1-5) multiplied by how bad it would be if it did (1-5). That gives you a score from 1 to 25. Critical (17-25) means act immediately. High (10-16) means fix within 30 days. Medium (5-9) means 90 days. Low (1-4) means accept or monitor. The point isn't the exact number — it's having a consistent way to compare different risks and decide what to fix first.",
+    "The most common mistake in risk scoring is overestimating everything as Critical. If everything is critical, nothing is. A lost laptop scores 6 (Medium) if disk encryption is enforced — because the encryption means the data is protected even if the hardware is gone. That's why encryption is a standard control: it changes the risk score of a common event."
+  ]},
+  {k:['incident response','ir','playbook','800-61','what to do','respond','incident','compromise'],a:[
+    "When an incident happens, the worst thing is making decisions under pressure. That's what the IR playbook is for — the decisions are made in advance. The NIST SP 800-61 lifecycle: Triage first (is this real?), then Contain (stop it spreading), then Investigate (build the timeline), then Eradicate (remove the threat), then Recover (restore services), then Post-Incident (write it up, improve the rules). In that order every time.",
+    "The step most junior analysts skip is Post-Incident. You deal with the incident, everything calms down, and then you move on. But that's where the learning happens. What detection fired? What didn't? What slowed the response? The post-incident report feeds directly back into better detection rules and updated risk scores."
+  ]},
+  {k:['threat intel','abuseipdb','ip','reputation','intelligence'],a:[
+    "Threat intelligence is context that makes alerts more meaningful. If an IP shows up in your logs, knowing it has a 97% abuse confidence score on AbuseIPDB changes everything about how you handle it. It's not a misconfigured client — it's a known attacker. That changes the severity, the response time and the escalation decision.",
+    "The practical workflow: alert fires, you grab the source IP, check it against AbuseIPDB. If the score is above 80, treat it as a real attack from a known threat actor. If it's 0, it might still be malicious but it hasn't been reported yet. Low score doesn't mean clean — it means unknown."
+  ]},
+  {k:['nervous','scared','worried','overwhelmed','too much','complicated','hard','difficult','stuck'],a:[
+    "Totally understandable. Cybersecurity looks overwhelming from the outside. There's a lot of jargon and a lot of tools and it can feel like you need to know everything. You don't. Start with one thing: understand how a log gets from a server to an alert. That's the core of SOC work. Everything else builds from there. This project is literally that one thing, end to end.",
+    "Everyone in security felt this way at the start. The people who make it are the ones who pick one concrete thing to build or understand and go deep on it, rather than trying to learn everything at once. You're already doing the right thing by building projects."
+  ]},
+  {k:['what is grc','explain grc','grc mean','governance risk','what does grc'],a:[
+    "GRC stands for Governance, Risk and Compliance. Governance is setting the rules — who is responsible for security, what the policies are, whether people follow them. Risk is identifying what could go wrong and scoring it so you know what to fix first. Compliance is proving your controls work — not just having a policy that says the right thing, but being able to show an auditor that you actually do it. Together they're the strategic layer that sits above the technical security work.",
+    "The simplest way to explain it: a SOC analyst asks 'is something bad happening right now?' A GRC analyst asks 'are we set up correctly so that if something bad happens, we can detect it, stop it and prove we handled it properly?' Both questions matter."
+  ]},
 ];
 
 function matchKB(q){
   const ql=q.toLowerCase();
   let best=null,bestScore=0;
   KB.forEach(entry=>{
-    const score=entry.k.reduce((s,kw)=>s+(ql.includes(kw)?kw.length:0),0);
+    const score=entry.k.reduce((s,kw)=>s+(ql.includes(kw)?kw.split(' ').length*3:0),0);
     if(score>bestScore){bestScore=score;best=entry}
   });
   return bestScore>2?best:null;
 }
 
-function fallback(q){
-  return`Good question. Based on this project: **SOC** covers log parsing, MITRE ATT&CK detection rules, brute force detection with sliding window, AbuseIPDB threat intelligence, and NIST SP 800-61 incident response. **GRC** covers risk scoring (likelihood × impact), ISO 27001 and NIST CSF compliance, network exposure scanning, and security policies. The key insight is how they connect — every SOC finding feeds the GRC risk register, every GRC policy creates new SOC detection rules. Try asking about a specific topic: MITRE ATT&CK, risk scoring, ISO 27001, the feedback loop, or how to get into cybersecurity.`;
-}
+const CONV=[];
+let lastTopic=null;
 
-const CONVHISTORY=[];
+function getResponse(q){
+  const match=matchKB(q);
+  if(match){
+    lastTopic=match;
+    const answers=match.a;
+    return answers[Math.floor(Math.random()*answers.length)];
+  }
+  // Follow-up on last topic
+  if(lastTopic&&(q.length<30||q.includes('more')||q.includes('tell me')||q.includes('explain')||q.includes('go on')||q.includes('continue'))){
+    const answers=lastTopic.a;
+    return answers[Math.floor(Math.random()*answers.length)];
+  }
+  // Generic helpful responses
+  const fallbacks=[
+    "Good question. Can you tell me a bit more about what you're trying to understand? I can go deep on SOC operations, GRC frameworks, risk management, MITRE ATT&CK, certifications or careers in cybersecurity.",
+    "I want to give you a useful answer. Are you asking from a 'I want to understand this concept' angle, or more of a 'I want to work in this area' angle? That'll help me tailor what I tell you.",
+    "That's an interesting area. The short answer depends on your context — are you a student, working in IT already, or completely new to security? Happy to adjust the answer based on where you're coming from."
+  ];
+  return fallbacks[Math.floor(Math.random()*fallbacks.length)];
+}
 
 async function sendAI(){
   const input=document.getElementById('aiinput');
@@ -669,22 +729,12 @@ async function sendAI(){
   appendMsg(q,'user');
   const typing=document.createElement('div');typing.className='aityping';typing.innerHTML='<span></span><span></span><span></span>';
   document.getElementById('aimessages').appendChild(typing);scrollChat();
-  await new Promise(r=>setTimeout(r,900+Math.random()*600));
+  await new Promise(r=>setTimeout(r,700+Math.random()*800));
   typing.remove();
-  const match=matchKB(q);
-  const answer=match?match.a:fallback(q);
+  const answer=getResponse(q);
   appendMsg(answer,'ai');
   document.getElementById('aisend').disabled=false;
 }
-
-function appendMsg(text,role){
-  const d=document.createElement('div');d.className=`aimsg ${role}`;
-  if(role==='ai')d.innerHTML=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
-  else d.textContent=text;
-  document.getElementById('aimessages').appendChild(d);scrollChat();
-}
-
-function scrollChat(){const m=document.getElementById('aimessages');m.scrollTop=m.scrollHeight}
 
 function askSug(el){document.getElementById('aiinput').value=el.textContent;sendAI()}
 
