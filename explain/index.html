@@ -727,12 +727,50 @@ async function sendAI(){
   const q=input.value.trim();if(!q)return;
   input.value='';document.getElementById('aisend').disabled=true;
   appendMsg(q,'user');
+  CONV.push({role:'user',content:q});
   const typing=document.createElement('div');typing.className='aityping';typing.innerHTML='<span></span><span></span><span></span>';
   document.getElementById('aimessages').appendChild(typing);scrollChat();
-  await new Promise(r=>setTimeout(r,700+Math.random()*800));
-  typing.remove();
-  const answer=getResponse(q);
-  appendMsg(answer,'ai');
+
+  // Try live AI first, fall back to local KB
+  let answered=false;
+  try{
+    const ctrl=new AbortController();
+    const tid=setTimeout(()=>ctrl.abort(),8000);
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      signal:ctrl.signal,
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':'',
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-haiku-4-5-20251001',
+        max_tokens:400,
+        system:`You are a friendly cybersecurity assistant embedded in a student portfolio project about SOC and GRC. You have a warm, conversational tone — like a knowledgeable colleague, not a textbook. Answer naturally. Keep replies concise (2-4 sentences max). If someone says hi or asks casual questions, respond casually. You know this project well: it has a SOC pipeline (log parser, MITRE ATT&CK alert engine, brute force detector with sliding window, AbuseIPDB threat intel) and a GRC side (risk matrix, network scanner, ISO 27001 checklist, NIST CSF mapping). You can talk about cybersecurity careers, concepts, frameworks, tools — anything relevant. Be human. Use contractions. Don't be stiff.`,
+        messages:CONV.slice(-8)
+      })
+    });
+    clearTimeout(tid);
+    if(res.ok){
+      const data=await res.json();
+      const txt=data.content?.[0]?.text;
+      if(txt){
+        typing.remove();
+        CONV.push({role:'assistant',content:txt});
+        appendMsg(txt,'ai');
+        answered=true;
+      }
+    }
+  }catch(e){}
+
+  if(!answered){
+    typing.remove();
+    const answer=getResponse(q);
+    CONV.push({role:'assistant',content:answer});
+    appendMsg(answer,'ai');
+  }
   document.getElementById('aisend').disabled=false;
 }
 
