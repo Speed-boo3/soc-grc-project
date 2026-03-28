@@ -736,6 +736,20 @@ async function sendAI(){
   document.getElementById('aisend').disabled=false;
 }
 
+function appendMsg(text, role){
+  const d=document.createElement('div');
+  d.className='aimsg '+role;
+  if(role==='ai') d.innerHTML=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  else d.textContent=text;
+  document.getElementById('aimessages').appendChild(d);
+  scrollChat();
+}
+
+function scrollChat(){
+  const m=document.getElementById('aimessages');
+  m.scrollTop=m.scrollHeight;
+}
+
 function askSug(el){document.getElementById('aiinput').value=el.textContent;sendAI()}
 
 /* ── IP LOOKUP ── */
