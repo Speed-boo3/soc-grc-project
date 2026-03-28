@@ -1,0 +1,56 @@
+<svg viewBox="0 0 800 130" xmlns="http://www.w3.org/2000/svg" width="800" height="130">
+  <rect width="800" height="130" fill="#0d1117" rx="10"/>
+  <text x="400" y="22" text-anchor="middle" fill="#666" font-family="JetBrains Mono,monospace" font-size="9" letter-spacing="2">THE FEEDBACK LOOP</text>
+
+  <!-- Boxes -->
+  <rect x="10" y="34" width="130" height="50" rx="7" fill="#1a0505" stroke="#ff4444" stroke-width="1.5"/>
+  <text x="75" y="55" text-anchor="middle" fill="#ff4444" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">SOC ALERT</text>
+  <text x="75" y="69" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="8">Brute force detected</text>
+  <text x="75" y="80" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="8">T1110 fired</text>
+
+  <line x1="142" y1="59" x2="168" y2="59" stroke="#ff8800" stroke-width="1.5" stroke-dasharray="4,3">
+    <animate attributeName="stroke-dashoffset" values="0;-14" dur="0.8s" repeatCount="indefinite"/>
+  </line>
+  <polygon points="168,55 176,59 168,63" fill="#ff8800"/>
+
+  <rect x="178" y="34" width="130" height="50" rx="7" fill="#1a0800" stroke="#ff8800" stroke-width="1.5"/>
+  <text x="243" y="55" text-anchor="middle" fill="#ff8800" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">RISK REGISTER</text>
+  <text x="243" y="69" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="8">Likelihood raised</text>
+  <text x="243" y="80" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="8">Score: Critical</text>
+
+  <line x1="310" y1="59" x2="336" y2="59" stroke="#ffcc00" stroke-width="1.5" stroke-dasharray="4,3">
+    <animate attributeName="stroke-dashoffset" values="0;-14" dur="0.8s" repeatCount="indefinite" begin="0.2s"/>
+  </line>
+  <polygon points="336,55 344,59 336,63" fill="#ffcc00"/>
+
+  <rect x="346" y="34" width="130" height="50" rx="7" fill="#1a1a00" stroke="#ffcc00" stroke-width="1.5"/>
+  <text x="411" y="55" text-anchor="middle" fill="#ffcc00" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">POLICY UPDATE</text>
+  <text x="411" y="69" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="8">SSH keys mandatory</text>
+  <text x="411" y="80" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="8">Passwords disabled</text>
+
+  <line x1="478" y1="59" x2="504" y2="59" stroke="#4488ff" stroke-width="1.5" stroke-dasharray="4,3">
+    <animate attributeName="stroke-dashoffset" values="0;-14" dur="0.8s" repeatCount="indefinite" begin="0.4s"/>
+  </line>
+  <polygon points="504,55 512,59 504,63" fill="#4488ff"/>
+
+  <rect x="514" y="34" width="130" height="50" rx="7" fill="#050a1a" stroke="#4488ff" stroke-width="1.5"/>
+  <text x="579" y="55" text-anchor="middle" fill="#4488ff" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">NEW RULE</text>
+  <text x="579" y="69" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="8">Password SSH</text>
+  <text x="579" y="80" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="8">= policy violation</text>
+
+  <line x1="646" y1="59" x2="672" y2="59" stroke="#00ff41" stroke-width="1.5" stroke-dasharray="4,3">
+    <animate attributeName="stroke-dashoffset" values="0;-14" dur="0.8s" repeatCount="indefinite" begin="0.6s"/>
+  </line>
+  <polygon points="672,55 680,59 672,63" fill="#00ff41"/>
+
+  <rect x="682" y="34" width="108" height="50" rx="7" fill="#001a00" stroke="#00ff41" stroke-width="1.5"/>
+  <text x="736" y="55" text-anchor="middle" fill="#00ff41" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">COMPLIANCE</text>
+  <text x="736" y="69" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="8">Score improves</text>
+  <text x="736" y="80" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="8">Loop continues</text>
+
+  <!-- Loop back arrow -->
+  <path d="M 736 86 Q 736 115 400 115 Q 64 115 64 86" stroke="#333" stroke-width="1" fill="none" stroke-dasharray="4,4">
+    <animate attributeName="stroke-dashoffset" values="0;-200" dur="4s" repeatCount="indefinite"/>
+  </path>
+  <polygon points="60,86 64,94 68,86" fill="#333"/>
+</svg>

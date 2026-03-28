@@ -1,0 +1,40 @@
+<svg viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" width="800" height="110">
+  <rect width="800" height="110" fill="#0d1117" rx="10"/>
+
+  <rect x="10" y="28" width="170" height="54" rx="8" fill="#050a1a" stroke="#4488ff" stroke-width="1.5"/>
+  <text x="95" y="50" text-anchor="middle" fill="#4488ff" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">GOVERNANCE</text>
+  <text x="95" y="65" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">Policies + roles</text>
+  <text x="95" y="77" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">Accountability</text>
+
+  <line x1="182" y1="55" x2="208" y2="55" stroke="#4488ff" stroke-width="1.5" stroke-dasharray="5,3">
+    <animate attributeName="stroke-dashoffset" values="0;-16" dur="1.2s" repeatCount="indefinite"/>
+  </line>
+  <polygon points="208,51 216,55 208,59" fill="#4488ff"/>
+
+  <rect x="218" y="28" width="170" height="54" rx="8" fill="#050a1a" stroke="#4488ff" stroke-width="1.5"/>
+  <text x="303" y="50" text-anchor="middle" fill="#4488ff" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">RISK</text>
+  <text x="303" y="65" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">Likelihood x impact</text>
+  <text x="303" y="77" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">Prioritise and treat</text>
+
+  <line x1="390" y1="55" x2="416" y2="55" stroke="#4488ff" stroke-width="1.5" stroke-dasharray="5,3">
+    <animate attributeName="stroke-dashoffset" values="0;-16" dur="1.2s" repeatCount="indefinite" begin="0.4s"/>
+  </line>
+  <polygon points="416,51 424,55 416,59" fill="#4488ff"/>
+
+  <rect x="426" y="28" width="170" height="54" rx="8" fill="#050a1a" stroke="#4488ff" stroke-width="1.5"/>
+  <text x="511" y="50" text-anchor="middle" fill="#4488ff" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">COMPLIANCE</text>
+  <text x="511" y="65" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">ISO 27001 / NIST CSF</text>
+  <text x="511" y="77" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">Audit evidence</text>
+
+  <line x1="598" y1="55" x2="624" y2="55" stroke="#4488ff" stroke-width="1.5" stroke-dasharray="5,3">
+    <animate attributeName="stroke-dashoffset" values="0;-16" dur="1.2s" repeatCount="indefinite" begin="0.8s"/>
+  </line>
+  <polygon points="624,51 632,55 624,59" fill="#4488ff"/>
+
+  <rect x="634" y="28" width="156" height="54" rx="8" fill="#001a00" stroke="#00ff41" stroke-width="1.5"/>
+  <text x="712" y="50" text-anchor="middle" fill="#00ff41" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">REPORT</text>
+  <text x="712" y="65" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">Weekly automated</text>
+  <text x="712" y="77" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">Compliance score</text>
+
+  <text x="400" y="105" text-anchor="middle" fill="#333" font-family="JetBrains Mono,monospace" font-size="9">GRC GOVERNANCE PIPELINE</text>
+</svg>

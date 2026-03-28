@@ -1,0 +1,42 @@
+<svg viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" width="800" height="110">
+  <rect width="800" height="110" fill="#0d1117" rx="10"/>
+
+  <!-- Step boxes -->
+  <rect x="10" y="28" width="140" height="54" rx="8" fill="#1a0505" stroke="#ff4444" stroke-width="1.5"/>
+  <text x="80" y="50" text-anchor="middle" fill="#ff4444" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">RAW LOGS</text>
+  <text x="80" y="65" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">SSH / Apache</text>
+  <text x="80" y="77" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">syslog</text>
+
+  <!-- Arrow 1 animated -->
+  <line x1="152" y1="55" x2="188" y2="55" stroke="#ff4444" stroke-width="1.5" stroke-dasharray="5,3">
+    <animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/>
+  </line>
+  <polygon points="188,51 196,55 188,59" fill="#ff4444"/>
+
+  <rect x="198" y="28" width="140" height="54" rx="8" fill="#1a0505" stroke="#ff4444" stroke-width="1.5"/>
+  <text x="268" y="50" text-anchor="middle" fill="#ff4444" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">LOG PARSER</text>
+  <text x="268" y="65" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">Classify + flag</text>
+  <text x="268" y="77" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">output JSON</text>
+
+  <line x1="340" y1="55" x2="376" y2="55" stroke="#ff4444" stroke-width="1.5" stroke-dasharray="5,3">
+    <animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite" begin="0.3s"/>
+  </line>
+  <polygon points="376,51 384,55 376,59" fill="#ff4444"/>
+
+  <rect x="386" y="28" width="140" height="54" rx="8" fill="#1a0505" stroke="#ff4444" stroke-width="1.5"/>
+  <text x="456" y="50" text-anchor="middle" fill="#ff4444" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">ALERT ENGINE</text>
+  <text x="456" y="65" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">YAML rules</text>
+  <text x="456" y="77" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">MITRE tagging</text>
+
+  <line x1="528" y1="55" x2="564" y2="55" stroke="#ff4444" stroke-width="1.5" stroke-dasharray="5,3">
+    <animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite" begin="0.6s"/>
+  </line>
+  <polygon points="564,51 572,55 564,59" fill="#ff4444"/>
+
+  <rect x="574" y="28" width="140" height="54" rx="8" fill="#001a00" stroke="#00ff41" stroke-width="1.5"/>
+  <text x="644" y="50" text-anchor="middle" fill="#00ff41" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">ALERTS</text>
+  <text x="644" y="65" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">Severity + MITRE</text>
+  <text x="644" y="77" text-anchor="middle" fill="#888" font-family="JetBrains Mono,monospace" font-size="9">AbuseIPDB score</text>
+
+  <text x="400" y="105" text-anchor="middle" fill="#333" font-family="JetBrains Mono,monospace" font-size="9">SOC DETECTION PIPELINE</text>
+</svg>

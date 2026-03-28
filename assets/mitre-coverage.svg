@@ -1,0 +1,26 @@
+<svg viewBox="0 0 800 80" xmlns="http://www.w3.org/2000/svg" width="800" height="80">
+  <rect width="800" height="80" fill="#0d1117" rx="10"/>
+
+  <!-- Tactic labels -->
+  <text x="10" y="18" fill="#555" font-family="JetBrains Mono,monospace" font-size="8" letter-spacing="1">CREDENTIAL ACCESS</text>
+  <rect x="10" y="24" width="195" height="26" rx="5" fill="#1a0505" stroke="#ff4444" stroke-width="1"/>
+  <text x="107" y="41" text-anchor="middle" fill="#ff4444" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">T1110  T1110.004</text>
+  <text x="107" y="45" text-anchor="middle" fill="#666" font-family="JetBrains Mono,monospace" font-size="7">Brute Force / Credential Stuffing</text>
+
+  <text x="215" y="18" fill="#555" font-family="JetBrains Mono,monospace" font-size="8" letter-spacing="1">INITIAL ACCESS</text>
+  <rect x="215" y="24" width="185" height="26" rx="5" fill="#1a0505" stroke="#ff8800" stroke-width="1"/>
+  <text x="307" y="37" text-anchor="middle" fill="#ff8800" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">T1078  T1190</text>
+  <text x="307" y="47" text-anchor="middle" fill="#666" font-family="JetBrains Mono,monospace" font-size="7">Valid Accounts / Exploit App</text>
+
+  <text x="410" y="18" fill="#555" font-family="JetBrains Mono,monospace" font-size="8" letter-spacing="1">PRIVILEGE ESCALATION</text>
+  <rect x="410" y="24" width="185" height="26" rx="5" fill="#1a0a00" stroke="#ffcc00" stroke-width="1"/>
+  <text x="502" y="37" text-anchor="middle" fill="#ffcc00" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">T1078</text>
+  <text x="502" y="47" text-anchor="middle" fill="#666" font-family="JetBrains Mono,monospace" font-size="7">Valid Accounts (sudo failure)</text>
+
+  <text x="605" y="18" fill="#555" font-family="JetBrains Mono,monospace" font-size="8" letter-spacing="1">EXECUTION</text>
+  <rect x="605" y="24" width="185" height="26" rx="5" fill="#050a1a" stroke="#4488ff" stroke-width="1"/>
+  <text x="697" y="37" text-anchor="middle" fill="#4488ff" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700">T1203</text>
+  <text x="697" y="47" text-anchor="middle" fill="#666" font-family="JetBrains Mono,monospace" font-size="7">Client Exploitation</text>
+
+  <text x="400" y="72" text-anchor="middle" fill="#333" font-family="JetBrains Mono,monospace" font-size="8">6 MITRE ATT&amp;CK TECHNIQUES COVERED</text>
+</svg>
